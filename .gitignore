@@ -1,0 +1,39 @@
+# CS4241 — Introduction to Artificial Intelligence
+# Student: Farima Konaré | Index: 10012200004
+
+# Secrets — NEVER commit
+.streamlit/secrets.toml
+
+# Large data files
+data/raw/*.pdf
+data/raw/*.csv
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# FAISS index and processed data (keep directories via .gitkeep)
+data/processed/*.json
+data/processed/*.index
+data/processed/*.pkl
+data/processed/*.bin
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code local settings and memory
+.claude/
+
+# Exam question paper (course-owned material)
+*.pdf
+
+# Local planning notes
+PROJECT_PLAN.md

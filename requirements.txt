@@ -1,0 +1,14 @@
+# CS4241 — Introduction to Artificial Intelligence
+# Student: Farima Konaré | Index: 10012200004
+
+sentence-transformers==3.4.1
+faiss-cpu==1.12.0
+groq==0.15.0
+pdfminer.six==20231228
+pandas==2.2.3
+rank-bm25==0.2.2
+streamlit==1.43.2
+numpy==1.26.4
+unicodedata2==15.1.0
+nbformat==5.10.4
+# tf-keras==2.21.0

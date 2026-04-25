@@ -39,6 +39,30 @@ except Exception:
 if _api_key:
     os.environ["GROQ_API_KEY"] = _api_key
 
+# ─── Download data files if missing ───────────────────────────────────────────
+import urllib.request
+
+def _download_data():
+    data_dir = os.path.join(os.path.dirname(__file__), "data", "raw")
+    os.makedirs(data_dir, exist_ok=True)
+
+    files = {
+        "Ghana_Election_Result.csv": st.secrets.get("ELECTION_DATA_URL", ""),
+        "2025-Budget-Statement-and-Economic-Policy_v4.pdf": st.secrets.get("BUDGET_DATA_URL", ""),
+    }
+
+    for filename, url in files.items():
+        filepath = os.path.join(data_dir, filename)
+        if url and not os.path.exists(filepath):
+            with st.spinner(f"Downloading {filename}..."):
+                try:
+                    urllib.request.urlretrieve(url, filepath)
+                except Exception as e:
+                    st.error(f"Failed to download {filename}: {e}")
+                    st.stop()
+
+_download_data()
+
 # ─── Global CSS ───────────────────────────────────────────────────────────────
 st.markdown("""
 <style>

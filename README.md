@@ -9,7 +9,7 @@ Lecturer: Godwin N. Danso | Academic City University
 
 Answers questions about Ghana's presidential election results (2000–2020) and the 2025 national budget. Built as a custom RAG pipeline — no LangChain, no LlamaIndex. Chunking, retrieval, and prompt construction are all hand-coded.
 
-**Live demo:** [Add Streamlit Cloud URL after deployment]
+**Live demo:** (https://ai10012200004.streamlit.app)
 
 ---
 

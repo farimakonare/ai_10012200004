@@ -48,7 +48,7 @@ def _download_data():
 
     files = {
         "Ghana_Election_Result.csv": st.secrets.get("ELECTION_DATA_URL", ""),
-        "2025-Budget-Statement-and-Economic-Policy_v4.pdf": st.secrets.get("BUDGET_DATA_URL", ""),
+        "2025-Budget-Statement.pdf": st.secrets.get("BUDGET_DATA_URL", ""),
     }
 
     for filename, url in files.items():

@@ -37,5 +37,5 @@ Thumbs.db
 
 # Local planning notes
 PROJECT_PLAN.md
-TESTPLAN.md
+logs/TESTPLAN.md
 .venv312/

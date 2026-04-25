@@ -9,6 +9,7 @@ Run: streamlit run app.py
 """
 
 import os
+os.environ["STREAMLIT_SERVER_FILE_WATCHER_TYPE"] = "none"
 os.environ.setdefault("TRANSFORMERS_NO_TF", "1")
 
 import sys

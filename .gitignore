@@ -3,6 +3,8 @@
 
 # Secrets — NEVER commit
 .streamlit/secrets.toml
+.env
+.env.*
 
 # Large data files
 data/raw/*.pdf
@@ -15,7 +17,6 @@ __pycache__/
 .venv/
 venv/
 env/
-.env
 
 # FAISS index and processed data (keep directories via .gitkeep)
 data/processed/*.json
@@ -30,8 +31,6 @@ data/processed/*.bin
 .DS_Store
 Thumbs.db
 
-# Claude Code local settings and memory
-.claude/
 
 # Exam question paper (course-owned material)
 *.pdf

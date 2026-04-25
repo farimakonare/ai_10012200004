@@ -15,7 +15,7 @@ from .generation.prompt_builder import build_prompt, manage_context_window
 from .generation.llm_client import generate
 from .memory import ConversationMemory
 from .logger import PipelineLogger, PipelineLog
-from .ingestion.chunker import load_chunks, build_and_save_all_chunks
+from .ingestion.chunker import load_chunks, build_and_save_all_chunks, CHUNK_SCHEMA_VERSION
 from .ingestion.csv_loader import load_election_documents
 from .ingestion.pdf_loader import load_budget_documents
 
@@ -42,19 +42,37 @@ class RAGPipeline:
         self._retriever = None
         self._chunks: List[Dict[str, Any]] = []
 
+    def _is_outdated_chunk_schema(self, chunks: List[Dict[str, Any]]) -> bool:
+        if not chunks:
+            return True
+        versions = [c.get("metadata", {}).get("chunk_schema_version", 0) for c in chunks[:20]]
+        return any(v < CHUNK_SCHEMA_VERSION for v in versions)
+
     def initialize(self, force_rebuild: bool = False) -> None:
         self._embedder = get_embedder()
         self._store = VectorStore(dim=self._embedder.dim)
 
+        loaded_cached_index = False
         if not force_rebuild and self._store.load():
             self._chunks = self._store.chunks
-        else:
+            if self._is_outdated_chunk_schema(self._chunks):
+                print(
+                    f"Detected outdated chunk schema. Rebuilding to v{CHUNK_SCHEMA_VERSION}..."
+                )
+            else:
+                loaded_cached_index = True
+
+        if not loaded_cached_index:
             import os
             chunks_path = os.path.join(
                 os.path.dirname(__file__), "..", "data", "processed", "all_chunks.json"
             )
             if os.path.exists(chunks_path):
                 self._chunks = load_chunks("all_chunks.json")
+                if self._is_outdated_chunk_schema(self._chunks):
+                    election_docs = load_election_documents()
+                    budget_docs = load_budget_documents()
+                    self._chunks = build_and_save_all_chunks(election_docs, budget_docs)
             else:
                 print("Building chunks from raw data...")
                 election_docs = load_election_documents()

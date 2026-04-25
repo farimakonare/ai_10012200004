@@ -53,7 +53,7 @@ GROQ_API_KEY = "your_key_here"
 ```bash
 streamlit run app.py
 ```
-First run builds the FAISS index over ~1,565 chunks — takes about a minute. Loads from disk after that.
+First run builds the FAISS index over ~1,572 chunks — takes about a minute. Loads from disk after that.
 
 ---
 

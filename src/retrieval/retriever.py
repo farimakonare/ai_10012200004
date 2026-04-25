@@ -85,6 +85,7 @@ class HybridRetriever:
         to avoid diluting the embedding.
         """
         north_pattern    = re.compile(r"\b(north|northern|upper)\b", re.IGNORECASE)
+        winner_pattern   = re.compile(r"\b(who won|winner|won the .* election|election winner)\b", re.IGNORECASE)
         budget_keywords  = re.compile(r"\b(budget|fiscal|revenue|expenditure|policy|mofep)\b", re.I)
         election_keywords = re.compile(r"\b(election|vote|votes|party|candidate|won|win|npp|ndc)\b", re.I)
 
@@ -92,7 +93,12 @@ class HybridRetriever:
 
         if north_pattern.search(query):
             if source_filter == "election" or (source_filter is None and not budget_keywords.search(query)):
-                expansions.append("Ghana election northern region upper east upper west")
+                expansions.append(
+                    "Ghana election northern region north east region savannah region upper east region upper west region"
+                )
+
+        if winner_pattern.search(query):
+            expansions.append("Ghana presidential election national summary winner total votes")
 
         if source_filter == "budget" and not election_keywords.search(query):
             expansions.append("2025 Ghana budget")

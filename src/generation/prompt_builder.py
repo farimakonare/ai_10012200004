@@ -35,7 +35,9 @@ Answer:"""
 TEMPLATE_3_WITH_MEMORY = """\
 You are a factual assistant for Academic City University, specialized in Ghana's elections \
 and economic policy.
-Answer ONLY using the retrieved context below. If the context is insufficient, say so clearly.
+Answer ONLY using the retrieved context below.
+If the context is partial, still provide the best direct answer first, then state what is missing.
+Only say you cannot determine the answer when none of the retrieved facts address the question.
 Do not fabricate information.
 
 {memory_block}Retrieved Context:

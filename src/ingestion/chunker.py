@@ -11,6 +11,7 @@ from typing import List, Dict, Any
 
 
 PROCESSED_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "data", "processed")
+CHUNK_SCHEMA_VERSION = 2
 
 
 def fixed_size_chunk(text: str, chunk_size: int = 400, overlap: int = 80) -> List[str]:
@@ -71,7 +72,11 @@ def wrap_chunks(texts: List[str], base_metadata: Dict[str, Any]) -> List[Dict[st
         if cid in seen:
             continue
         seen.add(cid)
-        docs.append({"id": cid, "text": text, "metadata": {**base_metadata}})
+        docs.append({
+            "id": cid,
+            "text": text,
+            "metadata": {**base_metadata, "chunk_schema_version": CHUNK_SCHEMA_VERSION},
+        })
     return docs
 
 
